@@ -20,34 +20,45 @@ public class Pawn extends ChessPiece{
 	public boolean[][] possibleMoves() {
 		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getRows()];
 		
-		// above
-		int cont = 0;
-		if (cont == 0) {
-			Position p = new Position(0, 0);
-			p.setValues(position.getRow() - 1, position.getColumn());
-		 
-			while (getBoard().positionExistis(p) && !getBoard().thereIsAPiece(p) && cont < 2) {
-				mat[p.getRow()][p.getColumn()] = true;
-				p.setRow(p.getRow() - 1);
-				
-			}
+		Position p = new Position(0, 0);
 		
+		if (getColor() == Color.WHITE) {
+			p.setValues(position.getRow() - 1, position.getColumn());
+			if (getBoard().positionExistis(p) && !getBoard().thereIsAPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			p.setValues(position.getRow() - 2, position.getColumn());
+			Position p2 = new Position(position.getRow() - 1, position.getColumn());
+			if (getBoard().positionExistis(p) && !getBoard().thereIsAPiece(p) && getBoard().positionExistis(p2) && !getBoard().thereIsAPiece(p2) && getMoveCount() == 0) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			p.setValues(position.getRow() - 1, position.getColumn() - 1);
+			if (getBoard().positionExistis(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			p.setValues(position.getRow() - 1, position.getColumn() + 1);
 			if (getBoard().positionExistis(p) && isThereOpponentPiece(p)) {
 				mat[p.getRow()][p.getColumn()] = true;
 			}
 		}
 		else {
-			Position p = new Position(0, 0);
-			p.setValues(position.getRow() - 1, position.getColumn());
+			p.setValues(position.getRow() + 1, position.getColumn());
 			if (getBoard().positionExistis(p) && !getBoard().thereIsAPiece(p)) {
 				mat[p.getRow()][p.getColumn()] = true;
-				p.setRow(p.getRow() - 1);
-				
 			}
-			
+			p.setValues(position.getRow() + 2, position.getColumn());
+			Position p2 = new Position(position.getRow() + 1, position.getColumn());
+			if (getBoard().positionExistis(p) && !getBoard().thereIsAPiece(p) && getBoard().positionExistis(p2) && !getBoard().thereIsAPiece(p2) && getMoveCount() == 0) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
+			p.setValues(position.getRow() + 1, position.getColumn() - 1);
 			if (getBoard().positionExistis(p) && isThereOpponentPiece(p)) {
 				mat[p.getRow()][p.getColumn()] = true;
-				}
+			}
+			p.setValues(position.getRow() + 1, position.getColumn() + 1);
+			if (getBoard().positionExistis(p) && isThereOpponentPiece(p)) {
+				mat[p.getRow()][p.getColumn()] = true;
+			}
 		}
  		
 			return mat;
